@@ -1,32 +1,53 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Box,
+  IconButton,
+} from "@mui/material";
 
-const Header = () => {
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import HistoryIcon from "@mui/icons-material/History";
+
+type HeaderProps = {
+  onOpen: () => void;
+};
+
+const Header = ({ onOpen }: HeaderProps) => {
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
-          sx={{ justifyContent: { xs: "center", sm: "flex-start" } }}
+          sx={{
+            justifyContent: { xs: "center", sm: "space-between" },
+            alignItems: "center",
+          }}
         >
-          <RestaurantIcon sx={{ display: { xs: "none", sm: "flex" }, mr: 2 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              fontWeight: 700,
-              fontSize: "large",
-              color: "inherit",
-            }}
-          >
-            SmartChef
-          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <RestaurantIcon
+              sx={{ display: { xs: "none", sm: "flex" }, mr: 2 }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontWeight: 700,
+                fontSize: "large",
+              }}
+            >
+              Smart Chef
+            </Typography>
+          </Box>
+
+          <IconButton onClick={onOpen} color="inherit">
+            <HistoryIcon />
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
+
 export default Header;
