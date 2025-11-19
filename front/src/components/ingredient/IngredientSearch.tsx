@@ -9,14 +9,46 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addIngredient } from "../../store/ingredientSlice";
 
+// constants
+import { MAX_INGREDIENTS, MIN_INPUT, MAX_INPUT } from "../../utils/constants";
+
+function verifyInput(input: string) {
+  const trimmed = input.trim();
+  if (trimmed.length < MIN_INPUT) {
+    return `Ingredient must be at least ${MIN_INPUT} characters`;
+  }
+  if (trimmed.length > MAX_INPUT) {
+    return `Ingredient must be no more than ${MAX_INPUT} characters`;
+  }
+  const regex = /^[a-zA-Z\s]+$/;
+  if (!regex.test(trimmed)) {
+    return "Ingredient can only contain letters and spaces";
+  }
+  return "";
+}
+
 export default function IngredientSearch() {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
   const handleAdd = () => {
+    const validationError = verifyInput(input);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     dispatch(addIngredient(input.trim().toLowerCase()));
-    console.log("ajout !");
     setInput("");
+    setError("");
+  };
+
+  const handleChange = (value: string) => {
+    setInput(value);
+    if (error) {
+      const validationError = verifyInput(value);
+      setError(validationError);
+    }
   };
 
   return (
@@ -33,14 +65,21 @@ export default function IngredientSearch() {
         noValidate
         autoComplete="off"
         sx={{ flexGrow: 1, minWidth: 200 }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleAdd();
+        }}
       >
         <TextField
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
+          error={!!error}
           id="ingredient-input"
           label="Choose your ingredients"
           placeholder="Type an ingredient..."
-          helperText="You can add up to 10 ingredients"
+          helperText={
+            error || `You can add up to ${MAX_INGREDIENTS} ingredients`
+          }
           fullWidth
           size="medium"
         />
