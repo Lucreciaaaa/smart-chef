@@ -1,16 +1,23 @@
+import { useState } from "react";
+
 // Components
-import { Button, TextField, Box } from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
 // Icons
 import AddIcon from "@mui/icons-material/Add";
 
 // Redux
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addIngredient } from "../../store/ingredientSlice";
+import { RootState } from "../../store/store";
 
 // constants
-import { MAX_INGREDIENTS, MIN_INPUT, MAX_INPUT } from "../../utils/constants";
+import {
+  MAX_INGREDIENTS,
+  MIN_INPUT,
+  MAX_INPUT,
+  MIN_INGREDIENTS,
+} from "../../utils/constants";
 
 function verifyInput(input: string) {
   const trimmed = input.trim();
@@ -28,12 +35,19 @@ function verifyInput(input: string) {
 }
 
 export default function IngredientSearch() {
+  const ingredientList = useSelector(
+    (state: RootState) => state.ingredients.list,
+  );
+
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
   const handleAdd = () => {
     const validationError = verifyInput(input);
+    if (ingredientList.length >= MAX_INGREDIENTS) {
+      return;
+    }
     if (validationError) {
       setError(validationError);
       return;
@@ -90,6 +104,7 @@ export default function IngredientSearch() {
         variant="outlined"
         size="medium"
         onClick={handleAdd}
+        disabled={ingredientList.length >= MAX_INGREDIENTS}
         sx={{
           minWidth: 0,
           padding: { xs: 0.5, sm: 1.5 },
@@ -100,17 +115,26 @@ export default function IngredientSearch() {
         <AddIcon />
       </Button>
 
-      <Button
-        aria-label="Search"
-        variant="contained"
-        size="medium"
-        sx={{
-          p: { xs: 0.5, sm: 1.5 },
-          height: { xs: 40, sm: 56 },
-        }}
-      >
-        SEARCH
-      </Button>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Button
+          disabled={ingredientList.length < MIN_INGREDIENTS}
+          aria-label="Search"
+          variant="contained"
+          size="medium"
+          sx={{
+            p: { xs: 0.5, sm: 1.5 },
+            height: { xs: 40, sm: 56 },
+          }}
+        >
+          SEARCH
+        </Button>
+
+        {ingredientList.length < MIN_INGREDIENTS && (
+          <Typography variant="caption" color="error" sx={{ mt: 0.5 }}>
+            Add at least {MIN_INGREDIENTS} ingredients to search
+          </Typography>
+        )}
+      </Box>
     </Box>
   );
 }

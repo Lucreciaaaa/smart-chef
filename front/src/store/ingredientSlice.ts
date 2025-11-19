@@ -5,7 +5,7 @@ type IngredientsState = {
 };
 
 const initialState: IngredientsState = {
-  list: ["chip 1", "chip2"], // initial values to test
+  list: [],
 };
 
 const ingredientsSlice = createSlice({
@@ -13,10 +13,15 @@ const ingredientsSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<string>) => {
-      state.list.push(action.payload);
+      const newIngredient = action.payload;
+      if (!state.list.includes(newIngredient)) {
+        state.list.push(action.payload);
+      }
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      state.list = state.list.filter((item) => item !== action.payload);
+      state.list = state.list.filter(
+        (item) => item !== action.payload.toLowerCase(),
+      );
     },
   },
 });

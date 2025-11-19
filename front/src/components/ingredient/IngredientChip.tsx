@@ -8,13 +8,14 @@ import { removeIngredient } from "../../store/ingredientSlice";
 const IngredientChip = () => {
   const chips = useSelector((state: RootState) => state.ingredients.list);
   const dispatch = useDispatch();
+  console.log("chip", chips);
 
   const handleDelete = (chip: string) => {
     dispatch(removeIngredient(chip));
   };
 
   return (
-    <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
+    <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1.5 }}>
       {chips.map((chip) => (
         <Chip
           key={chip}
