@@ -8,7 +8,6 @@ import { removeIngredient } from "../../store/ingredientSlice";
 const IngredientChip = () => {
   const chips = useSelector((state: RootState) => state.ingredients.list);
   const dispatch = useDispatch();
-  console.log("chip", chips);
 
   const handleDelete = (chip: string) => {
     dispatch(removeIngredient(chip));
