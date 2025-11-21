@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Box, Stack } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -6,6 +7,7 @@ import Header from "./Header";
 import RightDrawer from "./RightDrawer";
 import IngredientSearch from "../ingredient/IngredientSearch";
 import IngredientChip from "../ingredient/IngredientChip";
+import RecipeCard from "../recipe/RecipeCard";
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -37,6 +39,10 @@ export default function Layout({ children }: LayoutProps) {
         {children || <IngredientSearch />}
 
         <IngredientChip />
+
+        <Box display="flex" flexDirection="row" mt={3}>
+          <RecipeCard />
+        </Box>
       </Stack>
     </Box>
   );
