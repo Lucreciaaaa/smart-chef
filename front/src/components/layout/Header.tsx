@@ -1,11 +1,4 @@
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Container,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
 
 import HistoryIcon from "@mui/icons-material/History";
 
@@ -18,50 +11,48 @@ type HeaderProps = {
 const Header = ({ onOpenDrawer }: HeaderProps) => {
   return (
     <AppBar position="fixed">
-      <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
+      <Toolbar
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box
           sx={{
-            justifyContent: "space-between",
+            display: "flex",
+            flexDirection: "row",
+            flexGrow: 1,
             alignItems: "center",
           }}
         >
           <Box
+            component="img"
+            src={logo}
+            alt="SmartChef Logo"
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexGrow: 1,
-              alignItems: "center",
+              display: { xs: "none", sm: "flex" },
+              height: 48,
+              width: 48,
+              mr: 1,
+              justifyContent: "flex-start",
+            }}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            sx={{
+              fontWeight: 700,
+              fontSize: "large",
             }}
           >
-            <Box
-              component="img"
-              src={logo}
-              alt="SmartChef Logo"
-              sx={{
-                display: { xs: "none", sm: "flex" },
-                height: 48,
-                width: 48,
-                mr: 1,
-              }}
-            />
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                fontWeight: 700,
-                fontSize: "large",
-              }}
-            >
-              SmartChef
-            </Typography>
-          </Box>
+            SmartChef
+          </Typography>
+        </Box>
 
-          <IconButton onClick={onOpenDrawer} color="inherit">
-            <HistoryIcon />
-          </IconButton>
-        </Toolbar>
-      </Container>
+        <IconButton onClick={onOpenDrawer} color="inherit">
+          <HistoryIcon />
+        </IconButton>
+      </Toolbar>
     </AppBar>
   );
 };
