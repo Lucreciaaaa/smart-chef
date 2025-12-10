@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addIngredient } from "../../store/ingredientSlice";
 import { RootState } from "../../store/store";
+import { setFilteredRecipes } from "../../store/recipeSlice";
 
 // constants
 import {
@@ -18,6 +19,10 @@ import {
   MAX_INPUT,
   MIN_INGREDIENTS,
 } from "../../utils/constants";
+
+import { matchRecipes } from "../../utils/matchRecipes";
+
+import { useRecipes } from "../../hooks/useRecipes";
 
 function verifyInput(input: string) {
   const trimmed = input.trim();
@@ -38,11 +43,13 @@ export default function IngredientSearch() {
   const ingredientList = useSelector(
     (state: RootState) => state.ingredients.list,
   );
+  const { recipes } = useRecipes();
 
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
+  // Add (+) button
   const handleAdd = () => {
     const validationError = verifyInput(input);
     if (ingredientList.length >= MAX_INGREDIENTS) {
@@ -57,6 +64,13 @@ export default function IngredientSearch() {
     setError("");
   };
 
+  // Search button
+  const handleSearch = () => {
+    const filtered = matchRecipes(recipes, ingredientList);
+    dispatch(setFilteredRecipes(filtered));
+  };
+
+  // Update the input bar
   const handleChange = (value: string) => {
     setInput(value);
     if (error) {
@@ -118,6 +132,7 @@ export default function IngredientSearch() {
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Button
           disabled={ingredientList.length < MIN_INGREDIENTS}
+          onClick={handleSearch}
           aria-label="Search"
           variant="contained"
           size="medium"
