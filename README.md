@@ -26,7 +26,7 @@ Smart Chef is perfect for :
 
 ### Search Example
 <p align="center">
-<img width="1918" height="943" alt="image" src="https://github.com/user-attachments/assets/f8ba8de8-e109-472a-b0cb-3e08aa771f04" />
+<img width="1914" height="942" alt="image" src="https://github.com/user-attachments/assets/85711206-4fa5-4f3a-a3db-8e818ed2be38" />
 </p>
 
 
