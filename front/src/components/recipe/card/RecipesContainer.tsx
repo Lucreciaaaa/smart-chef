@@ -4,11 +4,12 @@ import RecipeCard from "./RecipeCard";
 
 // Redux
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 
 // hooks
-import { useRecipes } from "../../hooks/useRecipes";
-import { MAX_RECIPES } from "../../utils/constants";
+import { useRecipes } from "../../../hooks/useRecipes";
+
+import { MAX_RECIPES } from "../../../utils/constants";
 
 export default function RecipesContainer() {
   const { loading } = useRecipes();

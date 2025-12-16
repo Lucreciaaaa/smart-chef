@@ -16,9 +16,9 @@ import LocalDiningIcon from "@mui/icons-material/LocalDining";
 
 import { grey } from "@mui/material/colors";
 
-import { ScoredRecipe } from "../../types/recipe";
+import { ScoredRecipe } from "../../../types/recipe";
 
-import { MAX_CARD_CHIPS } from "../../utils/constants";
+import { MAX_CARD_CHIPS } from "../../../utils/constants";
 
 type Props = {
   recipe: ScoredRecipe;
@@ -133,10 +133,10 @@ export default function RecipeCard({ recipe }: Props) {
                 <Chip
                   // TODO : add button >> tooltip
                   label={`+${hiddenChipsCount}`}
+                  variant="filled"
                   size={isXS ? "small" : "medium"}
                   sx={{
-                    fontWeight: 500,
-                    opacity: 0.7,
+                    opacity: 0.6,
                   }}
                 ></Chip>
               )}
