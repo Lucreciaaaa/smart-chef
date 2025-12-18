@@ -6,9 +6,9 @@ import {
   CardMedia,
   Chip,
   Stack,
+  Tooltip,
   Typography,
   useMediaQuery,
-  useTheme,
 } from "@mui/material";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -25,15 +25,16 @@ type Props = {
 };
 
 export default function RecipeCard({ recipe }: Props) {
-  const theme = useTheme();
-  const isXS = useMediaQuery(theme.breakpoints.down("sm"));
+  const isXS = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  const visibleChips = recipe.usedIngredients
-    ? recipe.usedIngredients.slice(0, MAX_CARD_CHIPS)
-    : [];
-  const hiddenChipsCount = recipe.usedIngredients
-    ? recipe.usedIngredients.length - visibleChips.length
-    : 0;
+  const { usedIngredients, id, title, image, cookingTime, servings, overview } =
+    recipe;
+
+  const ingredients = usedIngredients ?? [];
+  const visibleChips = ingredients.slice(0, MAX_CARD_CHIPS);
+  const hiddenChips = ingredients.slice(MAX_CARD_CHIPS);
+  const hiddenChipsCount = hiddenChips.length;
+  const tooltipTitle = hiddenChipsCount > 0 ? hiddenChips.join(", ") : "";
 
   return (
     <Card
@@ -46,6 +47,7 @@ export default function RecipeCard({ recipe }: Props) {
       }}
     >
       <CardActionArea
+        aria-labelledby={`recipe-title-${id}`}
         sx={{
           flexGrow: 1,
           display: "flex",
@@ -54,15 +56,15 @@ export default function RecipeCard({ recipe }: Props) {
         }}
       >
         <CardMedia
-          aria-label="Recipe Image"
           component="img"
-          image={`http://localhost:3001/${recipe.image}`}
-          alt={recipe.title}
+          image={`http://localhost:3001/${image}`}
+          alt={title}
           sx={{ objectFit: "cover", height: { xs: 150, sm: 180, md: 200 } }}
         />
         <CardContent sx={{ flexGrow: 1, display: "flex" }}>
           <Stack direction="column" gap={0.5}>
             <Typography
+              id={`recipe-title-${id}`}
               gutterBottom
               component="div"
               variant="subtitle1"
@@ -81,7 +83,7 @@ export default function RecipeCard({ recipe }: Props) {
                 lineHeight: 1.4,
               }}
             >
-              {recipe.title}
+              {title}
             </Typography>
             <Box
               display="flex"
@@ -90,28 +92,28 @@ export default function RecipeCard({ recipe }: Props) {
               alignItems="center"
               gap={1.5}
             >
-              {recipe.cookingTime && (
+              {cookingTime && (
                 <Stack direction="row" gap={0.5}>
                   <AccessTimeIcon fontSize="small" sx={{ color: grey[600] }} />
                   <Typography variant="body1" color="text.secondary">
-                    {recipe.cookingTime} min
+                    {cookingTime} min
                   </Typography>
                 </Stack>
               )}
 
-              {recipe.servings && (
+              {servings && (
                 <Stack direction="row" gap={0.5}>
                   <LocalDiningIcon fontSize="small" sx={{ color: grey[600] }} />
                   <Typography variant="body1" color="text.secondary">
-                    {recipe.servings} servings
+                    {servings} servings
                   </Typography>
                 </Stack>
               )}
             </Box>
 
-            {recipe.overview && (
+            {overview && (
               <Typography variant="body2" color="text.secondary">
-                {recipe.overview}
+                {overview}
               </Typography>
             )}
 
@@ -128,17 +130,17 @@ export default function RecipeCard({ recipe }: Props) {
                   size={isXS ? "small" : "medium"}
                 />
               ))}
-
               {hiddenChipsCount > 0 && (
-                <Chip
-                  // TODO : add button >> tooltip
-                  label={`+${hiddenChipsCount}`}
-                  variant="filled"
-                  size={isXS ? "small" : "medium"}
-                  sx={{
-                    opacity: 0.6,
-                  }}
-                ></Chip>
+                <Tooltip title={tooltipTitle} placement="right" arrow>
+                  <Chip
+                    label={`+${hiddenChipsCount}`}
+                    variant="filled"
+                    size={isXS ? "small" : "medium"}
+                    sx={{
+                      opacity: 0.6,
+                    }}
+                  ></Chip>
+                </Tooltip>
               )}
             </Stack>
           </Stack>
