@@ -7,7 +7,7 @@ import Header from "./Header";
 import RightDrawer from "./RightDrawer";
 import IngredientSearch from "../ingredient/IngredientSearch";
 import IngredientChip from "../ingredient/IngredientChip";
-import RecipesContainer from "../recipe/card/RecipesContainer";
+import RecipesContainer from "../recipe/RecipesContainer";
 
 type LayoutProps = {
   children?: React.ReactNode;

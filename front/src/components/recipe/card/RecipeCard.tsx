@@ -15,20 +15,20 @@ import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import { grey } from "@mui/material/colors";
 
 import { ScoredRecipe } from "../../../types/recipe";
-
 import { MAX_CARD_CHIPS } from "../../../utils/constants";
 
 import LightTooltip from "../../custom/LightTooltip";
 
 type Props = {
   recipe: ScoredRecipe;
+  onSelectRecipe: () => void;
 };
 
-export default function RecipeCard({ recipe }: Props) {
+export default function RecipeCard({ recipe: r, onSelectRecipe }: Props) {
   const isXS = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const { usedIngredients, id, title, image, cookingTime, servings, overview } =
-    recipe;
+    r;
 
   const ingredients = usedIngredients ?? [];
   const visibleChips = ingredients.slice(0, MAX_CARD_CHIPS);
@@ -47,6 +47,7 @@ export default function RecipeCard({ recipe }: Props) {
       }}
     >
       <CardActionArea
+        onClick={onSelectRecipe}
         aria-labelledby={`recipe-title-${id}`}
         sx={{
           flexGrow: 1,

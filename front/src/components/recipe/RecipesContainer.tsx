@@ -1,18 +1,21 @@
 // components
 import { Box, CircularProgress, Typography } from "@mui/material";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "./card/RecipeCard";
 
 // Redux
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { RootState } from "../../store/store";
 
 // hooks
-import { useRecipes } from "../../../hooks/useRecipes";
+import { useState } from "react"; // (react)
+import { useRecipes } from "../../hooks/useRecipes";
 
-import { MAX_RECIPES } from "../../../utils/constants";
-import logo from "../../../assets/logo.png";
+import { MAX_RECIPES } from "../../utils/constants";
+import logo from "../../assets/logo.png";
 
 import { blue } from "@mui/material/colors";
+import RecipeModal from "./modal/RecipeModal";
+import { ScoredRecipe } from "../../types/recipe";
 
 const CenterBox = ({ children }: { children: React.ReactNode }) => (
   <Box
@@ -35,6 +38,16 @@ export default function RecipesContainer() {
   const { filtered, hasSearched } = useSelector(
     (state: RootState) => state.recipes,
   );
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState<ScoredRecipe | null>(
+    null,
+  );
+
+  const handleSelectRecipe = (recipe: ScoredRecipe) => {
+    setSelectedRecipe(recipe);
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => setOpenModal(false);
 
   // Initial State
   if (!hasSearched) {
@@ -99,8 +112,18 @@ export default function RecipesContainer() {
       }}
     >
       {filtered.slice(0, MAX_RECIPES).map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
+        <RecipeCard
+          key={recipe.id}
+          recipe={recipe}
+          onSelectRecipe={() => handleSelectRecipe(recipe)}
+        />
       ))}
+
+      <RecipeModal
+        open={openModal}
+        onClose={handleCloseModal}
+        selectedRecipe={selectedRecipe}
+      />
     </Box>
   );
 }
