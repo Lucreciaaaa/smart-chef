@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Recipe } from "../types/recipe";
+import { ScoredRecipe } from "../types/recipe";
 
 type RecipeState = {
-  filtered: Recipe[];
+  filtered: ScoredRecipe[];
   hasSearched: boolean;
 };
 
@@ -15,7 +15,7 @@ export const recipeSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setFilteredRecipes: (state, action: PayloadAction<Recipe[]>) => {
+    setFilteredRecipes: (state, action: PayloadAction<ScoredRecipe[]>) => {
       state.filtered = action.payload;
       state.hasSearched = true;
     },

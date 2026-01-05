@@ -7,12 +7,14 @@ import {
   DialogTitle,
   DialogContent,
   Stack,
+  LinearProgress,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 import { ScoredRecipe } from "../../../types/recipe";
+import { getMatchLabel } from "../../../utils/indicator";
 
 type DialogProps = {
   open: boolean;
@@ -28,6 +30,15 @@ export default function RecipeDialog({
   const fullScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   if (!selectedRecipe) return null;
+
+  const getScoreColor = (score: number) => {
+    if (score >= 70) return "success"; // green
+    if (score >= 40) return "warning"; // orange
+    return "error"; // red
+  };
+
+  const score = selectedRecipe.normalizedMatchScore;
+  const color = getScoreColor(score);
 
   return (
     <Dialog
@@ -68,7 +79,7 @@ export default function RecipeDialog({
 
       <DialogContent dividers sx={{ p: { xs: 2, md: 4 } }}>
         <Box display="flex" flexDirection={{ xs: "column", md: "row" }} gap={4}>
-          {/* Left column : Ingredients */}
+          {/* Left column : Image, Score & Ingredients */}
           <Box sx={{ width: { xs: "100%", md: "300px" }, flexShrink: 0 }}>
             <Box
               component="img"
@@ -83,6 +94,21 @@ export default function RecipeDialog({
                 boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
               }}
             />
+            <Box sx={{ mb: 2 }}>
+              <Typography
+                variant="subtitle2"
+                sx={{ color: `${color}.main`, fontWeight: "bold" }}
+                gutterBottom
+              >
+                {getMatchLabel(score)} ({score}%)
+              </Typography>
+              <LinearProgress
+                variant="determinate"
+                value={score}
+                color={color}
+                sx={{ height: 8, borderRadius: 5 }}
+              />
+            </Box>
 
             <Stack spacing={2}>
               <Typography

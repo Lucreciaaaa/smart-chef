@@ -17,5 +17,7 @@ export type Recipe = {
 
 export interface ScoredRecipe extends Recipe {
   usedIngredients?: string[];
-  score?: number;
+  matchIngredientsCount: number; // user ingredients needed in recipes
+  relevantInputCount: number; // maximum threshold (calculated)
+  normalizedMatchScore: number; // 0–100 (internal metric)
 }

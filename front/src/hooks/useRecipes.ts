@@ -6,7 +6,7 @@ import { RootState } from "../store/store";
 
 import { ScoredRecipe, Recipe } from "../types/recipe";
 
-import { matchRecipes } from "../utils/matchRecipes";
+import { matchRecipes } from "../services/matchRecipes";
 
 export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
