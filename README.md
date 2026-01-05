@@ -29,10 +29,10 @@ SmartChef is a **single-page application** that helps you discover recipes based
 * **📖 Full Guides**: Step-by-step instructions, images, and precise quantities.
 
 
-## 🎬 Demo
+## 🎬 Quick preview
 
 <p align="center">
-  ![SmartChef Quick Preview](https://github.com/user-attachments/assets/1bb0f4fd-e64e-46d6-b05d-1f8ba26d647f)
+<img src="https://github.com/user-attachments/assets/b5fbcdb1-dc09-425d-a1f7-573a7c47e0ab" alt="SmartChef Quick Preview" width="100%" />
 </p>
 
 
