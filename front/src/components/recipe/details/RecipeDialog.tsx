@@ -16,7 +16,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 import { ScoredRecipe } from "../../../types/recipe";
+
 import { getMatchLabel } from "../../../utils/indicator";
+import { API_URL } from "../../../utils/constants";
 
 type DialogProps = {
   open: boolean;
@@ -85,7 +87,7 @@ export default function RecipeDialog({
           <Box sx={{ width: { xs: "100%", md: "300px" }, flexShrink: 0 }}>
             <Box
               component="img"
-              src={`http://localhost:3001/${selectedRecipe.image}`}
+              src={`${API_URL}/${selectedRecipe.image}`}
               alt={
                 selectedRecipe.image
                   ? selectedRecipe.title

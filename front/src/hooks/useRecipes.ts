@@ -7,6 +7,7 @@ import { RootState } from "../store/store";
 import { ScoredRecipe, Recipe } from "../types/recipe";
 
 import { matchRecipes } from "../services/matchRecipes";
+import { API_URL } from "../utils/constants";
 
 export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -20,7 +21,7 @@ export function useRecipes() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("http://localhost:3001/recipes");
+        const res = await fetch(`${API_URL}/recipes`);
         const data = await res.json();
         setRecipes(data);
       } finally {
