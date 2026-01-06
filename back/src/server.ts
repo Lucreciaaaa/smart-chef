@@ -4,7 +4,13 @@ import path from "path";
 import fs from "fs/promises";
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 3001;
+
+app.use(
+  cors({
+    origin: "https://smart-chef-ton-nom.vercel.app",
+  })
+);
 
 app.use(express.static(path.join(__dirname, "..", "public")));
 
@@ -41,6 +47,6 @@ app.get("/recipes", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("back running on http://localhost:3001 !");
+app.listen(PORT, () => {
+  console.log(`back running on ${PORT} !`);
 });
