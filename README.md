@@ -39,14 +39,14 @@ SmartChef is a **single-page application** that helps you discover recipes based
 
 ## 🛠️ Tech Stack
 
-| Category               | Technology           |
-| :--------------------- | :------------------- |
-| **Frontend Framework** | React 19, TypeScript |
-| **State Management**   | Redux Toolkit        |
-| **UI Library**         | Material-UI (MUI)    |
-| **Styling**            | Emotion (CSS-in-JS)  |
-| **Backend**            | Node.js, Express     |
-| **Data Source**        | Kaggle               |
+| Category               | Technology            |
+| :--------------------- | :-------------------- |
+| **Frontend Framework** | React 19 (TypeScript) |
+| **State Management**   | Redux Toolkit         |
+| **UI Library**         | Material-UI (MUI)     |
+| **Styling**            | Emotion (CSS-in-JS)   |
+| **Backend**            | Node.js, Express      |
+| **Data Source**        | Kaggle                |
 
 **Dataset:** [Food Ingredients and Recipe Dataset with Images](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images)
 
