@@ -6,9 +6,6 @@ back/data/venv/
 
 # raw data
 back/data/raw/*.csv 
-back/public/FoodImages/
-
-back/data/processed/recipes.json
 
 
 __pycache__/
