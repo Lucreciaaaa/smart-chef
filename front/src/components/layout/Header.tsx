@@ -1,14 +1,8 @@
-import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
-
-import HistoryIcon from "@mui/icons-material/History";
+import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 import logo from "../../assets/logo.png";
 
-type HeaderProps = {
-  onOpenDrawer: () => void;
-};
-
-const Header = ({ onOpenDrawer }: HeaderProps) => {
+const Header = () => {
   return (
     <AppBar position="fixed">
       <Toolbar
@@ -48,10 +42,6 @@ const Header = ({ onOpenDrawer }: HeaderProps) => {
             SmartChef
           </Typography>
         </Box>
-
-        <IconButton onClick={onOpenDrawer} color="inherit">
-          <HistoryIcon />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

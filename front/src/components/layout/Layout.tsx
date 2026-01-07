@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Box, Stack } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Header from "./Header";
-import RightDrawer from "./RightDrawer";
 import IngredientSearch from "../ingredient/IngredientSearch";
 import IngredientChip from "../ingredient/IngredientChip";
 import RecipesContainer from "../recipe/RecipesContainer";
@@ -14,16 +13,10 @@ type LayoutProps = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => setOpen(true);
-  const handleDrawerClose = () => setOpen(false);
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Header onOpenDrawer={handleDrawerOpen} />
-      <RightDrawer openDrawer={open} onClose={handleDrawerClose} />
+      <Header />
 
       {/* Main content */}
       <Stack
